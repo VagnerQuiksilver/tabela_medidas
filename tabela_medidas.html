@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tabela de medidas</title>
+    <script>
+        function el_inativos(){
+            
+            for(let l=1;l<tabela.rows.length;l++){
+                for(let c=1;c<tabela.rows[l].cells.length; c++){
+                    tabela.rows[l].cells[c].removeAttribute('class')
+                    tabela.rows[l].cells[c].setAttribute('class','divisoes')
+                    
+                }             
+            }
+        }
+        function el_ativo(el){ 
+            id = el.id
+            pos = id.split('_')            
+            el_inativos()
+            for(let l=0;l<tabela.rows.length;l++){
+                for(let c=0;c<tabela.rows[l].cells.length; c++){
+                    if(pos[0] == l || pos[1] == c){                      
+                        tabela.rows[l].cells[c].setAttribute('class','divisoes linha_ativa')
+                        tabela.rows[pos[0]].cells[pos[1]].setAttribute('class','divisoes btn_ativo')
+                    }else{
+                        tabela.rows[0].cells[c].setAttribute('class','divisoes btn_ativo')  
+                        tabela.rows[l].cells[0].setAttribute('class','divisoes btn_ativo') 
+                    }                       
+                }             
+            }                    
+        }
+
+        function inicio(){
+            const tabela = document.getElementById('tabela')
+            var id = ""
+            var pos = ""
+        }
+        window.addEventListener('load',inicio)
+    </script>
+    <style>
+        :root{
+            --tom-verde:#79CAA3;
+            --texto-escuro:#888;
+            --texto-claro:#ccc;
+            --branco:#fff;
+            --tam-font:16px;
+            --font-family: Arial;
+        }
+        *{
+            margin:0px;
+            box-sizing: border-box;
+            padding:0px;
+        }
+        .container_modal{
+            width:100vw;
+            height:100vh;
+            position:absolute;
+            background-color:rgba(0,0,0,0.8);
+            display:flex;
+            justify-content: center;
+            align-items:center;
+        }
+        .container_tabela{
+            width:700px;
+            height:800px;
+            background-color:var(--branco);
+            z-index:2;
+            display:flex;
+            flex-direction:column;
+            justify-content:flex-start;
+            align-items:center;
+            padding:20px 20px;
+            overflow-x: hidden;
+            overflow-y:scroll;
+        }
+        .container_btn_X{
+            width:100%;
+            display:flex;
+            justify-content: flex-end;
+        }
+        .btn_X{
+            padding:0px 0px 20px 0px;
+            background-color:transparent;
+            cursor:pointer;
+            font-size:20px;
+            transition:0.5s;
+            color:var(--texto-escuro);
+            outline:none;
+            border:0px;
+            font-family:var(--font-family);
+        }
+        .btn_X:hover:hover{
+            font-weight: bold;
+        }
+        .cabecalho{
+            width:100%;
+            background-color:var(--tom-verde);
+            padding:20px 0px;
+            text-align:center;
+            color:var(--branco);
+            margin-bottom:30px;
+            font-family:var(--font-family);
+        }
+        .tabela{
+            width:100%;
+            margin-bottom: 10px;
+        }
+        .linha_cabecalho{
+            background-color:var(--tom-verde);
+            display:flex;
+            height:50px;
+        }
+        .divisoes_cabecalho, .divisoes{
+            display:flex;
+            flex-grow:1;
+            flex-basis:0;
+            justify-content:center;
+            align-items:center;
+            border:1px var(--branco) solid;
+            color:var(--branco);
+            font-size:var(--tam-font);
+            font-family:var(--font-family);
+            padding:5px;
+        }
+        .divisoes{
+            background-color:#F7F6F7;
+            border:solid 1px var(--branco);
+            transition:all 0.5s;
+        }
+        .linha_ativa{
+            border:1px var(--branco) solid;
+            color:var(--tom-verde);
+            background-color:#ddfaec;
+        }
+        .btn_ativo{
+            color:var(--branco);
+            background-color:var(--tom-verde)
+        }
+        .texto_obs{
+            width:100%;
+            font-size:var(--tam-font);
+            color:var(--texto-claro);
+        }
+        .linha{
+            width:95%;
+            height:2px;
+            background-color:#eee;
+            margin:20px 0px;
+        }
+        .container_especificacoes{
+            width:100%;
+            display:flex;
+            flex-direction:column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        h2{
+            margin-bottom:40px;
+        }
+        h2 , h4{
+            color:var(--texto-escuro)
+        }
+        li{
+            width:50%;
+            margin-bottom:20px;
+            list-style-type: none;
+        }
+        li div{
+            display:flex;
+            margin-bottom:8px;
+        }
+        .indice{
+            width:20px;
+            height:20px;
+            border-radius:100%;
+            margin-right:10px;
+            background-color:var(--tom-verde);
+            color:var(--branco);
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            font-size:16px;
+        }
+        .texto_especificacoes{
+            color:var(--texto-escuro);
+            font-size:18px;
+        }
+        @media screen and (max-width:600px){
+            .container_tabela{
+                padding:10px;
+            }
+            .btn_X{
+                font-size:30px;
+            }  
+            .linha_cabecalho{
+                height:60px;
+            }
+            .divisoes_cabecalho, .divisoes{
+                width:85px;
+                overflow:hidden;
+                padding:0px 5px;
+            }         
+        }
+
+    </style>
+</head>
+    <body>
+        <div class="container_modal">
+            <section class="container_tabela">
+                <div class="container_btn_X">
+                    <button class="btn_X">x</button>
+                </div>
+                <h1 class="cabecalho">Guia de medidas Fellas</h1>
+                
+                <table class="tabela" id="tabela">
+                    <thead id="tag_head">
+                        <tr class="linha_cabecalho" id="linha_0">
+                            <th class="divisoes_cabecalho" id="0_1">Peça</th>
+                            <th class="divisoes_cabecalho" id="0_3">Tamanhos</th>
+                            <th class="divisoes_cabecalho" id="0_5">Comprimento</th>
+                            <th class="divisoes_cabecalho" id="0_7">Largura</th>
+                            <th class="divisoes_cabecalho" id="0_9">Comprimento da manga</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tag_corpo" >
+                        <tr class="linha_cabecalho" id="linha_1">
+                            <th class="divisoes_cabecalho">P</th>
+                            <td class="divisoes" id="1_1" onmouseover="el_ativo(this)">11</td>
+                            <td class="divisoes" id="1_2" onmouseover="el_ativo(this)">12</td>
+                            <td class="divisoes" id="1_3" onmouseover="el_ativo(this)">13</td>
+                            <td class="divisoes" id="1_4" onmouseover="el_ativo(this)">14</td>
+                        </tr>
+                        <tr class="linha_cabecalho" id="linha_2">
+                            <th class="divisoes_cabecalho">M</th>
+                            <td class="divisoes" id="2_1" onmouseover="el_ativo(this)">21</td>
+                            <td class="divisoes" id="2_2" onmouseover="el_ativo(this)">22</td>
+                            <td class="divisoes" id="2_3" onmouseover="el_ativo(this)">23</td>
+                            <td class="divisoes" id="2_4" onmouseover="el_ativo(this)">24</td>
+                        </tr>
+                        <tr class="linha_cabecalho" id="linha_3">
+                            <th class="divisoes_cabecalho">G</th>
+                            <td class="divisoes" id="3_1" onmouseover="el_ativo(this)">31</td>
+                            <td class="divisoes" id="3_2" onmouseover="el_ativo(this)">32</td>
+                            <td class="divisoes" id="3_3" onmouseover="el_ativo(this)">33</td>
+                            <td class="divisoes" id="3_4" onmouseover="el_ativo(this)">34</td>
+                        </tr>
+                        <tr class="linha_cabecalho" id="linha_4">
+                            <th class="divisoes_cabecalho">XG</th>
+                            <td class="divisoes" id="4_1" onmouseover="el_ativo(this)">41</td>
+                            <td class="divisoes" id="4_2" onmouseover="el_ativo(this)">42</td>
+                            <td class="divisoes" id="4_3" onmouseover="el_ativo(this)">43</td>
+                            <td class="divisoes" id="4_4" onmouseover="el_ativo(this)">44</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="texto_obs" >*As medições dos produtos podem variar de 1 a 2cm conforme o produto selecionado</p>
+                <div class="linha"></div>
+
+                <h2 class="">Aprendendo a medir o tamanho do produto.</h2>
+
+                <ul class="container_especificacoes">
+                    <li>
+                        <div >
+                            <div class="indice">1</div><h4>Tamanhos</h4>
+                        </div>
+                        
+                        <p class="texto_especificacoes">Os Tamanhos podem variar de 1 a 2cm conforme o produto selecionado</p>
+                    </li>
+                    <li>
+                        <div >
+                            <div class="indice">2</div><h4>Comprimento</h4>
+                        </div>
+                        
+                        <p class="texto_especificacoes">Meça de onde a costura do ombro encontra a gola até a bainha.</p>
+                    </li>
+                    <li>
+                        <div >
+                            <div class="indice">3</div><h4>Largura</h4>
+                        </div>
+                        
+                        <p class="texto_especificacoes">Os Tamanhos podem variar de 1 a 2cm conforme o produto selecionado</p>
+                    </li>
+                    <li>
+                        <div >
+                            <div class="indice">4</div><h4>Comprimento da manga</h4>
+                        </div>
+                        
+                        <p class="texto_especificacoes">Meça de onde a costura do ombro encontra a cava até o punho.</p>
+                    </li>
+                    
+                </ul>
+
+            </section>
+        </div>
+    </body>
+</html>
